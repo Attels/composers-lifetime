@@ -2,11 +2,6 @@ import pandas as pd
 
 df = pd.read_csv("./Composers_by_nationality_Michael_Goncharov.csv")
 
-#FIXING DATES
-df.loc[df["name"]=="Fryderyk Chopin", "date_of_birth"] = "1810"
-df.loc[df["name"]=="Fryderyk Chopin", "date_of_death"] = "1849"
-
-
 composers_list = [
     "Dmitri Shostakovich",
     "Igor Stravinsky",
@@ -25,7 +20,7 @@ composers_list = [
     "Richard Strauss",
     "Arnold Schoenberg",
     "Ilyich Tchaikovsky",
-    "Chopin",
+    "Fryderyk Chopin",
     "Sebastian Bach",
     "Wolfgang Amadeus Mozart",
     "Handel",
@@ -55,7 +50,6 @@ def composers_search(composers_list):
     return comp_str
 
 df_filtered = df[df.name.str.contains(composers_search(composers_list))]
-print(df_filtered.to_string())
 
 df_final = df_filtered.dropna()
 df_final = df_final[df_final["date_of_death"].str.isnumeric()]
@@ -64,23 +58,21 @@ df_final["date_of_birth"] = df_final["date_of_birth"].astype(str)
 df_final["date_of_death"] = df_final["date_of_death"].astype(str)
 df_final = df_final.sort_values(by=['date_of_birth'])
 
-import plotly.express as px
+# import plotly.express as px
 
-fig = px.timeline(df_final, x_start="date_of_birth", x_end="date_of_death", y="name")
-fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
-fig.show()
-
-
+# fig = px.timeline(df_final, x_start="date_of_birth", x_end="date_of_death", y="name")
+# fig.update_yaxes(autorange="reversed") # otherwise tasks are listed from the bottom up
+# fig.show()
 
 df_final_2 = df_final.set_axis(["Task", "Start", "Finish"], axis='columns', inplace=False)
-df_final_2.head()
-
 
 import plotly.figure_factory as ff
-fig = ff.create_gantt(df_final_2)
+fig = ff.create_gantt(df_final_2, 
+                    bar_width = 0.3,
+                    height = 900,
+                    title = "Composers lifetime")
 
 fig.show()
-
 
 import plotly.io as pio
 pio.write_html(fig, file='index.html', auto_open=True)
