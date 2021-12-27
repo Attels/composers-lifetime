@@ -29,7 +29,22 @@ composers_list = [
     "Sebastian Bach",
     "Wolfgang Amadeus Mozart",
     "Handel",
-    "Franz Joseph Haydn"
+    "Franz Joseph Haydn",
+    "Arvo Pärt",
+    "Jean Sibelius",
+    "Giuseppe Verdi",
+    "Antonín Dvořák",
+    "Claude Debussy",
+    "Erik Satie",
+    "Krzysztof Penderecki",
+    "Gioacchino Rossini",
+    "Christoph Willibald Gluck",
+    "Rimsky-Korsakov",
+    "Mikhail Glinka",
+    "Alexander Borodin",
+    "Modest Mussorgsky",
+    "Antonio Vivaldi",
+    "Niccolò Paganini"
 ]
 
 def composers_search(composers_list):
